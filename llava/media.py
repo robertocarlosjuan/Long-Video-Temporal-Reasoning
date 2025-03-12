@@ -15,6 +15,10 @@ class Image(File):
 
 
 class Video(File):
-    pass
+    def __init__(self, path: str, start_timestamp: int = -1, end_timestamp: int = -1) -> None:
+        super().__init__(path)
+        # You may choose to only view a segment of the video
+        self.start_timestamp = start_timestamp # in seconds
+        self.end_timestamp = end_timestamp # in seconds
 
 

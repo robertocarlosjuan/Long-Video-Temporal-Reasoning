@@ -786,6 +786,10 @@ class LlavaMetaForCausalLM(ABC):
     def generate_content(self, prompt: Union[str, List], generation_config: Optional[GenerationConfig] = None) -> str:
         # TODO(zhijianl): Support directly taking conversation as input
         conversation = [{"from": "human", "value": prompt}]
+        return self.generate_content_from_conversation(conversation, generation_config)
+
+    @torch.inference_mode()
+    def generate_content_from_conversation(self, conversation: Any, generation_config: Optional[GenerationConfig] = None) -> str:
 
         # Extract media from the conversation
 
@@ -793,6 +797,9 @@ class LlavaMetaForCausalLM(ABC):
         media = extract_media(conversation, self.config)
 
         # Process media
+        print("processing videos")
+        rank = dist.rank()
+        world_size = dist.size()
         media_config = defaultdict(dict)
         for name in media:
             if name == "image":
@@ -824,7 +831,6 @@ class LlavaMetaForCausalLM(ABC):
 
         # Tokenize the conversation
         input_ids = tokenize_conversation(conversation, self.tokenizer, add_generation_prompt=True).cuda().unsqueeze(0)
-
         # Set up the generation config
         generation_config = generation_config or self.default_generation_config
 
