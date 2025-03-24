@@ -1,4 +1,7 @@
+# My Updates
 
+1. Drafted inference code for sharding long video inputs across gpus
+2. Demonstrated NVILA's ability to select relevant segments based on course sampling
 
 # VILA: Optimized Vision Language Models
 
