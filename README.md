@@ -3,6 +3,9 @@
 1. Drafted inference code for sharding long video inputs across gpus
 2. Demonstrated NVILA's ability to select relevant segments based on course sampling
 
+The script to run is in scripts/eval/ego4d.sh
+and the relevant files are in llava/eval/ego4d_vila
+
 # VILA: Optimized Vision Language Models
 
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](CODE_LICENSE)
